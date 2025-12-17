@@ -1,15 +1,20 @@
 //stats
 var playerhp = 100;
-var playerdmg = 1;
-var player = 1;
+var playerdmg = 100000000;
+
 var playerdeffence = 1;
-var playercritchance = 10;
+var playercritchance = 1;
 var playerCritmult = 2;
-var enemyhp = 100;
+var enemyhp = 50;
+var enemydmg = 1;
+
+var gold = 0;
+var playerLevel = 1;
+
 //funny
 var eye = 50;
 function setup() {
-  createCanvas(1500, 835);
+  createCanvas(1600, 835);
 }
 function draw() {
   background(0, 0, 0);
@@ -26,6 +31,10 @@ function draw() {
 
   text("enemy hp:", 750, 60);
   text(enemyhp, 850, 60);
+  text("gold:", 1400, 20);
+  text(gold, 1450, 60);
+  text("level:", 1400, 100);
+  text(playerLevel, 1450, 140);
   //game stuff
   // game input handled in keyReleased()
 
@@ -35,16 +44,23 @@ function draw() {
   textAlign(CENTER, CENTER);
   rotate(radians(95));
   text("3", 400, -755);
+
+  if (enemyhp <= 0&& playerhp > 0) {
+   enemyhp = 50 + int(random(1, 50)+int(random(1,playerhp)));
+   playerhp = playerhp - (enemydmg/playerdeffence);
+   enemydmg = enemydmg + int(random(1,5));
+    gold = gold + int(random(1,10))*playerLevel;
+    playerLevel = playerLevel + 1;
+  } 
 }
 
 // attaking
 function keyReleased() {
+if (key === "a" || key === "A" ) {
+ enemyhp = enemyhp - playerdmg;
+   } else if (int(random(1,100)) <= playercritchance ) {
+ enemyhp = enemyhp - (playerdmg * playerCritmult);
+   }
 
   
-if (key === "a" || key === "A"&&randomNumber(1, 100) <= playercritchance) {
-          enemyhp= enemyhp - (playerdmg*playerCritmult);
-   }else{
-    enemyhp = enemyhp - playerdmg 
-   };
-
 }
