@@ -1,5 +1,6 @@
 //stats
 var playerhp = 100;
+var playerMaxhp=100
 var playerdmg = 100000000;
 
 var playerdeffence = 1;
@@ -8,13 +9,26 @@ var playerCritmult = 2;
 var enemyhp = 50;
 var enemydmg = 1;
 
+var lore;
+var shop;
+
 var gold = 0;
 var playerLevel = 1;
+ 
 
 //funny
 var eye = 50;
 function setup() {
   createCanvas(1600, 835);
+  // create the lore paragraph once (not every frame)
+  lore = createP("senteced to die in the dungeon,for arson, you kill to extend your life or die trying. press 'a' to attack the enemy.pess 's' to close");
+  lore.position(10, 600);
+  lore.style('color', 'white');
+
+  shop = createP("shop is currently unavailable");
+  shop.position(1300, 600);
+  shop.style('color', 'white');
+
 }
 function draw() {
   background(0, 0, 0);
@@ -26,24 +40,22 @@ function draw() {
   ellipse(800, 400, eye, eye);
   fill(255, 255, 255);
   textSize(32);
-  text("player hp:", 100, 20);
-  text(playerhp, 200, 20);
+  text("player hp:" + playerhp, 100, 20);
 
-  text("enemy hp:", 750, 60);
-  text(enemyhp, 850, 60);
-  text("gold:", 1400, 20);
-  text(gold, 1450, 60);
-  text("level:", 1400, 100);
-  text(playerLevel, 1450, 140);
-  //game stuff
-  // game input handled in keyReleased()
+
+  text("enemy hp:"+enemyhp, 750, 60);
+
+  text("gold:" + gold, 1400, 20);
+
+  text("level:" + playerLevel, 1400, 100);
+ 
+  text("enemy placeholder", 750, 500);
+  // lore is created once in setup()
+  textSize(16);
+  fill(255, 255, 255);
 
   //lilguy 3
-  fill(0, 0, 0);
-  textSize(125);
-  textAlign(CENTER, CENTER);
-  rotate(radians(95));
-  text("3", 400, -755);
+ 
 
   if (enemyhp <= 0&& playerhp > 0) {
    enemyhp = 50 + int(random(1, 50)+int(random(1,playerhp)));
@@ -62,5 +74,9 @@ if (key === "a" || key === "A" ) {
  enemyhp = enemyhp - (playerdmg * playerCritmult);
    }
 
+   
+   if (key === "s" || key === "S" ) {
+  lore.hide();
+   }
   
 }
