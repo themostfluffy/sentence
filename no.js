@@ -1,7 +1,7 @@
 //stats
 var playerhp = 100;
 var playerMaxhp=100
-var playerdmg = 100000000;
+var playerdmg = 1;
 
 var playerdeffence = 1;
 var playercritchance = 1;
