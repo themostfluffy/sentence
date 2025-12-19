@@ -4,7 +4,7 @@ var playerMaxhp=100
 var playerdmg = 1;
 
 var playerdeffence = 1;
-var playercritchance = 1;
+var playercritchance = 100;
 var playerCritmult = 2;
 var enemyhp = 50;
 var enemydmg = 1;
@@ -27,7 +27,7 @@ var healing;
 
 function preload() {
   sword = loadImage("sword.jpg");
-  shield = loadImage("shield.jpg");
+  shield = loadImage("sheild.jpg");
   crit = loadImage("crit.jpg");
   critmult = loadImage("critmult.jpg");
   healing = loadImage("healthpotion.jpg");
@@ -72,18 +72,27 @@ function draw() {
 // items for shop
   image(sword, 1200, 150, 100, 100);
   text("sword +1 dmg 10 gold", 1300, 200);
-  
-  image(shield, 1200, 250, 100, 100);
-  text("shield +1 deffence 10 gold", 1300, 300);
-  
+
+ image(shield, 1200, 250, 100, 100);
+  text("shield +10 deffence 100 gold", 1300, 300);
+
   image(crit, 1200, 350, 100, 100);
-  text("crit +1% crit chance 10 gold", 1300, 400);
-  
+  text("crit +10 crit chance 100 gold", 1300, 400);
+
   image(critmult, 1200, 450, 100, 100);
-  text("crit mult +0.5x crit damage 10 gold", 1300, 500);
-  
+  text("crit mult +10 crit mult 200 gold", 1300, 500);
+
   image(healing, 1200, 550, 100, 100);
-  text("healing potion +20 hp 10 gold", 1300, 600);
+  text("healing potion +50 hp 15 gold", 1300, 600);
+
+  text("crit chance: " + playercritchance, 100, 100);
+  text("crit mult: " + playerCritmult, 100, 150);
+  text("deffence: " + playerdeffence, 100, 200);
+  text("dmg: " + playerdmg, 100, 250);
+
+//shop buying
+ 
+  
   //lilguy 3
  
 
@@ -96,6 +105,36 @@ function draw() {
     playerMaxhp = playerMaxhp + int(random(10,30));
     
   } 
+   if (mouseIsPressed) {
+    //sword
+    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 150 && mouseY <= 250 && gold >= 10) {
+      playerdmg = playerdmg + 1;
+      gold = gold - 10;
+    }
+    //shield
+    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 250 && mouseY <= 350 && gold >= 100) {
+      playerdeffence = playerdeffence + 10;
+      gold = gold - 100;
+    }
+    //crit chance
+    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 350 && mouseY <= 450 && gold >= 100) {
+      playercritchance = playercritchance + 10;
+      gold = gold - 100;
+    }
+    //crit mult
+    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 450 && mouseY <= 550 && gold >= 200) {
+      playerCritmult = playerCritmult + 10;
+      gold = gold - 200;
+    }
+    //healing potion
+    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 550 && mouseY <= 650 && gold >= 15) {
+      playerhp = playerMaxhp;
+      if (playerhp < playerMaxhp) {
+        playerhp = playerMaxhp;
+      }
+      gold = gold - 15;
+    }
+}
 }
 
 // attaking
@@ -106,7 +145,7 @@ if (key === "a" || key === "A" ) {
  enemyhp = enemyhp - (playerdmg * playerCritmult);
    }
 
-   
+   //hide lore
    if (key === "s" || key === "S" ) {
   lore.hide();
    }
