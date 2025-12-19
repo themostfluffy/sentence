@@ -18,6 +18,22 @@ var playerLevel = 1;
 
 //funny
 var eye = 50;
+//images
+var sword;
+var shield;
+var crit;
+var critmult;
+var healing;
+
+function preload() {
+  sword = loadImage("sword.jpg");
+  shield = loadImage("shield.jpg");
+  crit = loadImage("crit.jpg");
+  critmult = loadImage("critmult.jpg");
+  healing = loadImage("");
+}
+
+
 function setup() {
   createCanvas(1600, 835);
   // create the lore paragraph once (not every frame)
@@ -25,8 +41,8 @@ function setup() {
   lore.position(10, 600);
   lore.style('color', 'white');
 
-  shop = createP("shop is currently unavailable");
-  shop.position(1300, 600);
+  shop = createP("shop");
+  shop.position(1300, 500);
   shop.style('color', 'white');
 
 }
@@ -63,6 +79,8 @@ function draw() {
    enemydmg = enemydmg + int(random(1,5));
     gold = gold + int(random(1,10))*playerLevel;
     playerLevel = playerLevel + 1;
+    playerMaxhp = playerMaxhp + int(random(10,30));
+    
   } 
 }
 
