@@ -30,7 +30,7 @@ function preload() {
   shield = loadImage("shield.jpg");
   crit = loadImage("crit.jpg");
   critmult = loadImage("critmult.jpg");
-  healing = loadImage("");
+  healing = loadImage("healthpotion.jpg");
 }
 
 
@@ -69,7 +69,21 @@ function draw() {
   // lore is created once in setup()
   textSize(16);
   fill(255, 255, 255);
-
+// items for shop
+  image(sword, 1200, 150, 100, 100);
+  text("sword +1 dmg 10 gold", 1300, 200);
+  
+  image(shield, 1200, 250, 100, 100);
+  text("shield +1 deffence 10 gold", 1300, 300);
+  
+  image(crit, 1200, 350, 100, 100);
+  text("crit +1% crit chance 10 gold", 1300, 400);
+  
+  image(critmult, 1200, 450, 100, 100);
+  text("crit mult +0.5x crit damage 10 gold", 1300, 500);
+  
+  image(healing, 1200, 550, 100, 100);
+  text("healing potion +20 hp 10 gold", 1300, 600);
   //lilguy 3
  
 
