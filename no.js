@@ -4,20 +4,23 @@ var playerMaxhp=100
 var playerdmg = 1;
 
 var playerdeffence = 1;
-var playercritchance = 100;
+var playercritchance = 1;
 var playerCritmult = 2;
 var enemyhp = 50;
 var enemydmg = 1;
 
+//lore and shop
 var lore;
 var shop;
 
+//currency and level
 var gold = 0;
 var playerLevel = 1;
  
 
 //funny
 var eye = 50;
+
 //images
 var sword;
 var shield;
@@ -139,11 +142,14 @@ function draw() {
 
 // attaking
 function keyReleased() {
-if (key === "a" || key === "A" ) {
- enemyhp = enemyhp - playerdmg;
-   } else if (int(random(1,100)) <= playercritchance ) {
- enemyhp = enemyhp - (playerdmg * playerCritmult);
-   }
+if (key === "a" || key === "A") {
+  // determine if this attack is a critical hit
+  if (int(random(1, 100)) <= playercritchance) {
+    enemyhp = enemyhp - (playerdmg * playerCritmult);
+  } else {
+    enemyhp = enemyhp - playerdmg;
+  }
+}
 
    //hide lore
    if (key === "s" || key === "S" ) {
