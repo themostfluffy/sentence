@@ -16,7 +16,10 @@ var shop;
 //currency and level
 var gold = 0;
 var playerLevel = 1;
- 
+
+//loot
+var lootRoll = 0;
+var lootRolled = false;
 
 //funny
 var eye = 50;
@@ -59,6 +62,7 @@ function draw() {
   textSize(32);
   text("player hp:" + playerhp, 100, 20);
 
+
 //stats display
 textSize(32);
 text("player dmg:" + playerdmg, 100, 60);
@@ -84,7 +88,7 @@ text("player crit mult:" + playerCritmult + "x", 100, 180);
 
  
     
-  } 
+  
    if (playerhp <= 0) { 
     textSize(64); 
     fill(255, 0, 0);  
@@ -92,37 +96,37 @@ text("player crit mult:" + playerCritmult + "x", 100, 180);
     noLoop();
   }
   //loot
-  if (enemyhp <= 0) {
-    var lootRoll = int(random(1, 100));
-  }else if (lootRoll <= 30) {
+  if (enemyhp <= 1 && playerhp > 0 && !lootRolled) {
+    lootRoll = int(random(1, 100));
+    lootRolled = true;
+  }
+  if (lootRoll <= 30) {
       playerdmg = playerdmg + 1;
-      image(sword, 50, 100, 100, 100);
+
     } 
     else if (lootRoll <= 55) {
       playerdeffence = playerdeffence + 1;
-      image(shield, 200, 100, 100, 100);
+
     } 
-    else if (lootRoll <= 80) {
+    else if (lootRoll <= 80 ) {
       playercritchance = playercritchance + 1;
-      image(crit, 350, 100, 100, 100);
+
     } 
     else if (lootRoll <= 95) {
       playerCritmult = playerCritmult + 0.5;
-      image(critmult, 500, 100, 100, 100);
+ 
     } 
-   
-   else if (enemyhp <= 0&& playerhp > 0) {
+  if (enemyhp <= 0&& playerhp > 0) {
    enemyhp = 50 + int(random(1, 50)+int(random(1,playerhp)));
    playerhp = playerhp - (enemydmg/playerdeffence);
    enemydmg = enemydmg + int(random(1,5));
     playerLevel = playerLevel + 1;
     playerMaxhp = playerMaxhp + int(random(10,30));
+    lootRolled = false;
    }
+    text("lootRoll:" + lootRoll, 40, 40);
+  }
 
- else  {
-      playerhp = min(playerhp + int(random(10, 30)), playerMaxhp);
-      image(healing, 650, 100, 100, 100);
-    }
 
 // attaking
 function keyReleased() {
