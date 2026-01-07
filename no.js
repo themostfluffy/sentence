@@ -14,13 +14,17 @@ var lore;
 var shop;
 
 //currency and level
-var gold = 0;
+var souls = 0;
 var playerLevel = 1;
 
 //loot
 var lootRoll = 0;
 var lootRolled = false;
-
+var attackRoll = false;
+var healRoll = false;
+var deffenceRoll = false;
+var critRoll = false;
+var critmultRoll = false;
 //funny
 var eye = 50;
 
@@ -73,11 +77,12 @@ text("player crit mult:" + playerCritmult + "x", 100, 180);
 
   text("enemy hp:"+enemyhp, 750, 60);
 
-  text("gold:" + gold, 1400, 20);
+  text("souls:" + souls, 1400, 20);
 
   text("level:" + playerLevel, 1400, 100);
  
   text("enemy placeholder", 750, 500);
+
   // lore is created once in setup()
   textSize(16);
   fill(255, 255, 255);
@@ -100,21 +105,23 @@ text("player crit mult:" + playerCritmult + "x", 100, 180);
     lootRoll = int(random(1, 100));
     lootRolled = true;
   }
-  if (lootRoll <= 30) {
+  if (lootRoll <= 30 && !attackRoll) {
       playerdmg = playerdmg + 1;
-
+      attackRoll = true;
     } 
-    else if (lootRoll <= 55) {
+    else if (lootRoll <= 55 && !healRoll) {
       playerdeffence = playerdeffence + 1;
+      healRoll = true;
 
     } 
-    else if (lootRoll <= 80 ) {
+    else if (lootRoll <= 80 && !critRoll) {
       playercritchance = playercritchance + 1;
+      critRoll = true;
 
     } 
-    else if (lootRoll <= 95) {
+    else if (lootRoll <= 95 && !critmultRoll) {
       playerCritmult = playerCritmult + 0.5;
- 
+      critmultRoll = true;
     } 
   if (enemyhp <= 0&& playerhp > 0) {
    enemyhp = 50 + int(random(1, 50)+int(random(1,playerhp)));
@@ -122,6 +129,8 @@ text("player crit mult:" + playerCritmult + "x", 100, 180);
    enemydmg = enemydmg + int(random(1,5));
     playerLevel = playerLevel + 1;
     playerMaxhp = playerMaxhp + int(random(10,30));
+    souls = souls + (int(random(5,20))*playerLevel);
+
     lootRolled = false;
    }
     text("lootRoll:" + lootRoll, 40, 40);
