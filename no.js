@@ -44,9 +44,7 @@ function setup() {
   lore.position(10, 600);
   lore.style('color', 'white');
 
-  shop = createP("shop");
-  shop.position(1300, 500);
-  shop.style('color', 'white');
+  
 
 }
 function draw() {
@@ -61,6 +59,13 @@ function draw() {
   textSize(32);
   text("player hp:" + playerhp, 100, 20);
 
+//stats display
+textSize(32);
+text("player dmg:" + playerdmg, 100, 60);
+text("player deffence:" + playerdeffence, 100, 100);
+text("player crit chance:" + playercritchance + "%", 100, 140);
+text("player crit mult:" + playerCritmult + "x", 100, 180);
+
 
   text("enemy hp:"+enemyhp, 750, 60);
 
@@ -72,73 +77,52 @@ function draw() {
   // lore is created once in setup()
   textSize(16);
   fill(255, 255, 255);
-// items for shop
-  image(sword, 1200, 150, 100, 100);
-  text("sword +1 dmg 10 gold", 1300, 200);
 
- image(shield, 1200, 250, 100, 100);
-  text("shield +10 deffence 100 gold", 1300, 300);
-
-  image(crit, 1200, 350, 100, 100);
-  text("crit +10 crit chance 100 gold", 1300, 400);
-
-  image(critmult, 1200, 450, 100, 100);
-  text("crit mult +10 crit mult 200 gold", 1300, 500);
-
-  image(healing, 1200, 550, 100, 100);
-  text("healing potion +50 hp 15 gold", 1300, 600);
-
-  text("crit chance: " + playercritchance, 100, 100);
-  text("crit mult: " + playerCritmult, 100, 150);
-  text("deffence: " + playerdeffence, 100, 200);
-  text("dmg: " + playerdmg, 100, 250);
-
-//shop buying
- 
   
   //lilguy 3
  
 
-  if (enemyhp <= 0&& playerhp > 0) {
+ 
+    
+  } 
+   if (playerhp <= 0) { 
+    textSize(64); 
+    fill(255, 0, 0);  
+    text("you died lol", 700, 300);
+    noLoop();
+  }
+  //loot
+  if (enemyhp <= 0) {
+    var lootRoll = int(random(1, 100));
+  }else if (lootRoll <= 30) {
+      playerdmg = playerdmg + 1;
+      image(sword, 50, 100, 100, 100);
+    } 
+    else if (lootRoll <= 55) {
+      playerdeffence = playerdeffence + 1;
+      image(shield, 200, 100, 100, 100);
+    } 
+    else if (lootRoll <= 80) {
+      playercritchance = playercritchance + 1;
+      image(crit, 350, 100, 100, 100);
+    } 
+    else if (lootRoll <= 95) {
+      playerCritmult = playerCritmult + 0.5;
+      image(critmult, 500, 100, 100, 100);
+    } 
+   
+   else if (enemyhp <= 0&& playerhp > 0) {
    enemyhp = 50 + int(random(1, 50)+int(random(1,playerhp)));
    playerhp = playerhp - (enemydmg/playerdeffence);
    enemydmg = enemydmg + int(random(1,5));
-    gold = gold + int(random(1,10))*playerLevel;
     playerLevel = playerLevel + 1;
     playerMaxhp = playerMaxhp + int(random(10,30));
-    
-  } 
-   if (mouseIsPressed) {
-    //sword
-    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 150 && mouseY <= 250 && gold >= 10) {
-      playerdmg = playerdmg + 1;
-      gold = gold - 10;
+   }
+
+ else  {
+      playerhp = min(playerhp + int(random(10, 30)), playerMaxhp);
+      image(healing, 650, 100, 100, 100);
     }
-    //shield
-    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 250 && mouseY <= 350 && gold >= 100) {
-      playerdeffence = playerdeffence + 10;
-      gold = gold - 100;
-    }
-    //crit chance
-    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 350 && mouseY <= 450 && gold >= 100) {
-      playercritchance = playercritchance + 10;
-      gold = gold - 100;
-    }
-    //crit mult
-    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 450 && mouseY <= 550 && gold >= 200) {
-      playerCritmult = playerCritmult + 10;
-      gold = gold - 200;
-    }
-    //healing potion
-    if (mouseX >= 1200 && mouseX <= 1300 && mouseY >= 550 && mouseY <= 650 && gold >= 15) {
-      playerhp = playerMaxhp;
-      if (playerhp < playerMaxhp) {
-        playerhp = playerMaxhp;
-      }
-      gold = gold - 15;
-    }
-}
-}
 
 // attaking
 function keyReleased() {
@@ -157,3 +141,4 @@ if (key === "a" || key === "A") {
    }
   
 }
+
