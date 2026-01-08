@@ -81,7 +81,7 @@ text("player crit mult:" + playerCritmult + "x", 100, 180);
 
   text("level:" + playerLevel, 1400, 100);
  
-  text("enemy placeholder", 750, 500);
+
 
   // lore is created once in setup()
   textSize(16);
